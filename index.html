@@ -275,7 +275,7 @@
 
   <p class="hint" id="hint">Tap the box to open it</p>
 
-  <div class="gift-wrap" id="giftWrap" onclick="openGift()">
+  <div class="gift-wrap" id="giftWrap">
     <div class="glow"></div>
     <div class="box-body"></div>
     <div class="box-ribbon-v"></div>
@@ -287,7 +287,7 @@
 
   <div class="scratch-wrap" id="scratchWrap">
     <div class="message-card">
-      <h1>To My world ❤️</h1>
+      <h1>To My World ❤️</h1>
       <p>
         BAMOUTT FEKIII y agmal w ahla bnt fel doinya enty ahla haga 3eyouni shafethaa w agmal haga mwgoda fel doinya kolaha bahbk❤️
         <br>
@@ -301,6 +301,23 @@
 
   <script>
     let opened = false;
+
+    const giftWrapEl = document.getElementById('giftWrap');
+    let touchFired = false;
+
+    giftWrapEl.addEventListener('touchstart', function (e) {
+      touchFired = true;
+      openGift();
+    }, { passive: true });
+
+    giftWrapEl.addEventListener('click', function (e) {
+      if (touchFired) {
+        // Ignore the synthetic click that follows a touch, already handled above.
+        touchFired = false;
+        return;
+      }
+      openGift();
+    });
 
     function openGift() {
       if (opened) return;
